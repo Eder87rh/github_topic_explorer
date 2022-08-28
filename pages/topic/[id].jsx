@@ -25,6 +25,13 @@ const Topics = () => {
     );
   if (error) return <p>Error... ${error.message}</p>;
 
+  // if (
+  //   data.topic.relatedTopics.length === 0 &&
+  //   data.topic.stargazers.totalCount === 0
+  // ) {
+  //   router.push("noResults");
+  // }
+
   return (
     <Container>
       <Typography variant="h4" gutterBottom sx={{ mt: 3 }}>

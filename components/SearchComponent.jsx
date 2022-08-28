@@ -37,9 +37,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("sm")]: {
-      width: "12ch",
+      width: "20ch",
       "&:focus": {
-        width: "20ch",
+        width: "30ch",
       },
     },
   },
@@ -47,17 +47,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const SearchComponent = () => {
   return (
-    <div>
-      <Search>
-        <SearchIconWrapper>
-          <SearchIcon />
-        </SearchIconWrapper>
-        <StyledInputBase
-          placeholder="Search…"
-          inputProps={{ "aria-label": "search" }}
-        />
-      </Search>
-    </div>
+    <Search>
+      <SearchIconWrapper>
+        <SearchIcon />
+      </SearchIconWrapper>
+      <StyledInputBase
+        placeholder="Search Topic…"
+        inputProps={{ "aria-label": "search" }}
+      />
+    </Search>
   );
 };
 
