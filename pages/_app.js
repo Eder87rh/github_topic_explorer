@@ -1,7 +1,7 @@
 import Layout from "../components/Layout";
-import "../styles/globals.css";
 import client from "../graphql/apolloClient";
 import { ApolloProvider } from "@apollo/client";
+import "../styles/app.css";
 
 function MyApp({ Component, pageProps }) {
   return (

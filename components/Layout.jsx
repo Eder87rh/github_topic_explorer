@@ -30,7 +30,6 @@ const Layout = ({ children }) => {
       </AppBar>
 
       <Box component="main" sx={{ p: 3 }}>
-        <Toolbar />
         {children}
       </Box>
     </Box>
