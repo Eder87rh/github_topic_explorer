@@ -1,18 +1,20 @@
 import * as React from "react";
-import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import InputBase from "@mui/material/InputBase";
-import MenuIcon from "@mui/icons-material/Menu";
 import SearchComponent from "./SearchComponent";
 import PropTypes from "prop-types";
+import Head from "next/head";
 
 const Layout = ({ children }) => {
   return (
     <Box sx={{ flexGrow: 1 }}>
+      <Head>
+        <title>Github Topic Explorer</title>
+        <meta name="description" content="Search tool for Github topics" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <AppBar position="static">
         <Toolbar>
           <Typography

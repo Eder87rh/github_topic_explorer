@@ -1,11 +1,15 @@
 import Layout from "../components/Layout";
 import "../styles/globals.css";
+import client from "../graphql/apolloClient";
+import { ApolloProvider } from "@apollo/client";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <ApolloProvider client={client}>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </ApolloProvider>
   );
 }
 
