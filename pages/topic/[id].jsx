@@ -8,6 +8,7 @@ import {
   Container,
   CircularProgress,
   Box,
+  Divider,
 } from "@mui/material";
 
 const Topics = () => {
@@ -25,18 +26,19 @@ const Topics = () => {
     );
   if (error) return <p>Error... ${error.message}</p>;
 
-  // if (
-  //   data.topic.relatedTopics.length === 0 &&
-  //   data.topic.stargazers.totalCount === 0
-  // ) {
-  //   router.push("noResults");
-  // }
+  if (
+    data.topic.relatedTopics.length === 0 &&
+    data.topic.stargazers.totalCount === 0
+  ) {
+    router.replace("/noresults");
+  }
 
   return (
     <Container>
       <Typography variant="h4" gutterBottom sx={{ mt: 3 }}>
         {id.toUpperCase()}
       </Typography>
+      <Divider />
 
       <Typography sx={{ mt: 5 }} variant="h5" gutterBottom>
         Related Topics

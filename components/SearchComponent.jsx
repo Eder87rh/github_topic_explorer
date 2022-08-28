@@ -1,7 +1,19 @@
 import * as React from "react";
 import { styled, alpha } from "@mui/material/styles";
-import InputBase from "@mui/material/InputBase";
+import {
+  InputBase,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Box,
+  CircularProgress,
+} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import { useLazyQuery } from "@apollo/client";
+import _, { set } from "lodash";
+import { GET_TOPIC_BY_NAME } from "../graphql/queries/topic";
+import { useRouter } from "next/router";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -28,6 +40,19 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   justifyContent: "center",
 }));
 
+const SearchResults = styled("div")(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  width: "86%",
+  position: "absolute",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  backgroundColor: "lightgray",
+  marginTop: "10px",
+  borderRadius: "5px",
+  color: "black",
+}));
+
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
@@ -46,6 +71,56 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const SearchComponent = () => {
+  const [text, setText] = React.useState("");
+  const [search, { loading, data }] = useLazyQuery(GET_TOPIC_BY_NAME);
+  const debouncer = React.useCallback(_.debounce(search, 1000), [search]);
+  const router = useRouter();
+  let results = null;
+
+  if (loading) {
+    results = (
+      <SearchResults>
+        <Box
+          sx={{
+            width: "100%",
+            maxWidth: 360,
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      </SearchResults>
+    );
+  }
+
+  if (
+    data?.topic?.relatedTopics.length > 0 &&
+    data?.topic?.stargazers.totalCount > 0 &&
+    text !== ""
+  ) {
+    results = (
+      <SearchResults>
+        <Box sx={{ width: "100%", maxWidth: 360 }}>
+          <nav aria-label="topics results">
+            <List>
+              <ListItem disablePadding>
+                <ListItemButton
+                  onClick={() => {
+                    setText("");
+                    router.push(data.topic.name);
+                  }}
+                >
+                  <ListItemText primary={data.topic.name} />
+                </ListItemButton>
+              </ListItem>
+            </List>
+          </nav>
+        </Box>
+      </SearchResults>
+    );
+  }
+
   return (
     <Search>
       <SearchIconWrapper>
@@ -54,7 +129,15 @@ const SearchComponent = () => {
       <StyledInputBase
         placeholder="Search Topic…"
         inputProps={{ "aria-label": "search" }}
+        value={text}
+        onChange={(e) => {
+          setText(e.target.value);
+          debouncer({
+            variables: { topic: e.target.value.toLocaleLowerCase() },
+          });
+        }}
       />
+      {results}
     </Search>
   );
 };
