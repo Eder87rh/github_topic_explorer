@@ -2,14 +2,27 @@ import React from "react";
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
 import { GET_TOPIC_BY_NAME } from "../../graphql/queries/topic";
-import { Typography, Chip, Container } from "@mui/material";
+import {
+  Typography,
+  Chip,
+  Container,
+  CircularProgress,
+  Box,
+} from "@mui/material";
 
 const Topics = () => {
   const router = useRouter();
   const { id } = router.query;
-  const { loading, error, data } = useQuery(GET_TOPIC_BY_NAME, id);
+  const { loading, error, data } = useQuery(GET_TOPIC_BY_NAME, {
+    variables: { topic: id },
+  });
 
-  if (loading) return <p>Loading</p>;
+  if (loading)
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <CircularProgress />
+      </Box>
+    );
   if (error) return <p>Error... ${error.message}</p>;
 
   return (
@@ -27,7 +40,7 @@ const Topics = () => {
           key={topic.id}
           label={topic.name}
           variant="outlined"
-          onClick={() => {}}
+          onClick={() => router.push(topic.name)}
         />
       ))}
 
@@ -37,8 +50,6 @@ const Topics = () => {
       <Typography variant="subtitle1" gutterBottom>
         {data.topic.stargazers.totalCount}
       </Typography>
-
-      {/* <p>{JSON.stringify(data, null, 2)}</p> */}
     </Container>
   );
 };
