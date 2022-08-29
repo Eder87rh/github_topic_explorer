@@ -11,7 +11,7 @@ import {
   Divider,
 } from "@mui/material";
 
-const Topics = () => {
+const Topic = () => {
   const router = useRouter();
   const { id } = router.query;
   const { loading, error, data } = useQuery(GET_TOPIC_BY_NAME, {
@@ -63,4 +63,4 @@ const Topics = () => {
   );
 };
 
-export default Topics;
+export default Topic;
