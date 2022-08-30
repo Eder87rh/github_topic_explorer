@@ -11,8 +11,8 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useLazyQuery } from "@apollo/client";
-import _, { set } from "lodash";
-import { GET_TOPIC_BY_NAME } from "../graphql/queries/topic";
+import _ from "lodash";
+import { GET_TOPIC_BY_NAME } from "../../graphql/queries/topic";
 import { useRouter } from "next/router";
 
 const Search = styled("div")(({ theme }) => ({

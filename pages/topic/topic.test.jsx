@@ -6,7 +6,6 @@ import Topic from "./[id]";
 import { RouterContext } from "next/dist/shared/lib/router-context";
 import { mocks } from "../../graphql/queries/topic";
 import { createMockRouter } from "../../utils/test-utils/createMockRouter";
-// import Router from "next/router";
 
 describe("Topic", () => {
   it("should render the component", async () => {
@@ -59,5 +58,6 @@ describe("Topic", () => {
     fireEvent.click(angularButton);
 
     expect(router.push).toHaveBeenCalledTimes(1);
+    expect(router.push).toBeCalledWith("angular");
   });
 });
