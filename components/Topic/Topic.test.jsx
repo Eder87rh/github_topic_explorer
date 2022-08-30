@@ -1,8 +1,7 @@
 import React from "react";
-import "@testing-library/jest-dom/extend-expect";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { MockedProvider } from "@apollo/client/testing";
-import Topic from "./[id]";
+import Topic from "./Topic";
 import { RouterContext } from "next/dist/shared/lib/router-context";
 import { mocks } from "../../graphql/queries/topic";
 import { createMockRouter } from "../../utils/test-utils/createMockRouter";
